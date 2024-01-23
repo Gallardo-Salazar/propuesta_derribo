@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Prouestaparaderiibo_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:20, minZoom:1
+        }).fitBounds([[19.673415359167045,-100.29357925084366],[19.678397642141526,-100.284111729752]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 20,
+        });
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        map.createPane('pane_VueloOctubre_1');
+        map.getPane('pane_VueloOctubre_1').style.zIndex = 401;
+        var img_VueloOctubre_1 = 'data/VueloOctubre_1.png';
+        var img_bounds_VueloOctubre_1 = [[19.673852419000017,-100.29291897698724],[19.67801442,-100.28614510801278]];
+        var layer_VueloOctubre_1 = new L.imageOverlay(img_VueloOctubre_1,
+                                              img_bounds_VueloOctubre_1,
+                                              {pane: 'pane_VueloOctubre_1'});
+        bounds_group.addLayer(layer_VueloOctubre_1);
+        map.addLayer(layer_VueloOctubre_1);
+        map.createPane('pane_VueloAbril_2');
+        map.getPane('pane_VueloAbril_2').style.zIndex = 402;
+        var img_VueloAbril_2 = 'data/VueloAbril_2.png';
+        var img_bounds_VueloAbril_2 = [[19.673839340650673,-100.292836926],[19.678044794349308,-100.28613416799998]];
+        var layer_VueloAbril_2 = new L.imageOverlay(img_VueloAbril_2,
+                                              img_bounds_VueloAbril_2,
+                                              {pane: 'pane_VueloAbril_2'});
+        bounds_group.addLayer(layer_VueloAbril_2);
+        map.addLayer(layer_VueloAbril_2);
+        function pop_Prouestaparaderiibo_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Prouestaparaderiibo_3_0() {
+            return {
+                pane: 'pane_Prouestaparaderiibo_3',
+                opacity: 1,
+                color: 'rgba(228,26,28,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Prouestaparaderiibo_3');
+        map.getPane('pane_Prouestaparaderiibo_3').style.zIndex = 403;
+        map.getPane('pane_Prouestaparaderiibo_3').style['mix-blend-mode'] = 'normal';
+        var layer_Prouestaparaderiibo_3 = new L.geoJson(json_Prouestaparaderiibo_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Prouestaparaderiibo_3',
+            layerName: 'layer_Prouestaparaderiibo_3',
+            pane: 'pane_Prouestaparaderiibo_3',
+            onEachFeature: pop_Prouestaparaderiibo_3,
+            style: style_Prouestaparaderiibo_3_0,
+        });
+        bounds_group.addLayer(layer_Prouestaparaderiibo_3);
+        map.addLayer(layer_Prouestaparaderiibo_3);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Prouestaparaderiibo_3.png" /> Prouesta para deriibo': layer_Prouestaparaderiibo_3,"Vuelo Abril": layer_VueloAbril_2,"Vuelo Octubre": layer_VueloOctubre_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        </script>
+    </body>
+</html>
